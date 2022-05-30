@@ -1,4 +1,6 @@
 var notebook = {
+
+    //gets notebook id from url
     parseNbid: function() {
         let url = window.location.href;
         let x = url.lastIndexOf('/');
@@ -10,6 +12,7 @@ var notebook = {
         return notebook.createNoteElement(note.id, note.text);
     },
 
+    //creates a note element
     createNoteElement: function(noteId, text) {
         var noteDiv = $("<div>", {
             class: 'note',
@@ -32,6 +35,7 @@ var notebook = {
         return noteDiv;
     },
 
+    //displays the note element on the page
     displayNotes: function(resp) {
         for (const note of resp.notes) {
             var noteElement = notebook.createNoteElement(note);
@@ -41,11 +45,13 @@ var notebook = {
         }
     },
     
+    //creates a new notebook
     createNotebook: function(resp) {
         window.location.href = '/display/' + resp.notebookId
         console.log(resp);
     },
     
+    //displays your entire notebook
     displayNotebook: function() {
         nbid = notebook.parseNbid();
         $.ajax({
@@ -54,6 +60,7 @@ var notebook = {
           }).done(notebook.displayNotes);
     },
 
+    //checks if new notebook button is clicked
     ready: function() {
         $("#new_notebook")[0].onclick = function(e) {
             console.log("Button pressed:");

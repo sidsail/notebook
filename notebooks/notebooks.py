@@ -7,12 +7,14 @@ import notebooks.dblayer.notes_db as notes
 from flask import jsonify
 from flask import abort
 
+#creates new notebook
 def create_notebook():
     notebook_uuid = str(uuid.uuid4())
     name = 'No Name'
     notebooks.create_notebook(notebook_uuid, name)
     return jsonify({"notebookId": notebook_uuid})
 
+#creates a new note
 def create_note(nbid, body):
     if notebooks.check_exists(nbid):
         if "text" not in body:
@@ -26,6 +28,7 @@ def create_note(nbid, body):
     else:
         abort(404)
 
+#gets all of the notes in a particular notebook
 def get_notes(nbid):
     rows = notes.get_notes(nbid)
     notes_list = []
@@ -38,7 +41,7 @@ def get_notes(nbid):
         
     
 
-
+#deletes a single note
 def delete_note(nid):
     notes.delete_note(nid)
 

@@ -6,30 +6,34 @@ from . import notebooks
 
 
 def routes(app):
+    #endpoint for creating a new notebook
     @app.route('/notebooks', methods=['POST'])
     def handle_create_notebook():
         return notebooks.create_notebook()
     
+    #endpoint for creating a new note
     @app.route('/notebooks/<nbid>/notes', methods = ['POST'])
     def handle_create_note(nbid):
         body = request.json
         return notebooks.create_note(nbid, body)
     
-
-    
+    #endpoint for getting all notes
     @app.route('/notebooks/<nbid>/notes', methods = ['GET'])
     def handle_get_notes(nbid):
         return notebooks.get_notes(nbid)
 
+    #endpoint for deleting a note
     @app.route('/notebooks/<nbid>/notes/<nid>', methods = ['DELETE'])
     def handle_delete_note(nid, nbid):
         notebooks.delete_note(nid)
         return 'done'
     
+    #renders page for a notebook
     @app.route('/display/<nbid>')
     def handle_display_notebook(nbid):
         return render_template('notebook.html')
 
+    #renders home page
     @app.route('/')
     def handle_home():
         return render_template('index.html')
