@@ -6,16 +6,20 @@ var notebook = {
         return nbid;
     },
 
-    createNoteElement: function(note) {
+    createNoteElementFromResponse: function(note) {
+        return notebook.createNoteElement(note.id, note.text);
+    },
+
+    createNoteElement: function(noteId, text) {
         var noteDiv = $("<div>", {
             class: 'note',
-            id: note.id,
+            id: noteId,
         });
         
         var noteTextDiv = $("<div>", {
             class: 'note-text',
         });
-        noteTextDiv.append('<p>' + note.text + "</p>");
+        noteTextDiv.append('<p>' + text + "</p>");
 
         var deleteButton = $("<button>", {
             class: "delete-button"
