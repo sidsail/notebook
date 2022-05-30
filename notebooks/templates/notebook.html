@@ -1,0 +1,38 @@
+<!DOCTYPE html> 
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="/static/notebook.js"></script>      
+    </head>
+
+    <body>
+        <h1>Please bookmark this page</h1>
+        <div>
+            <div>
+                <input type="text" size="50" />
+            </div>
+            <div>
+                <button id="new_note">Add Note</button>
+            </div>
+        </div>
+        <div class="notes" id="notes" visibility="none">
+            <!--
+            <hr/>
+            <div class="note">
+                <div class="note_text">
+                    <p>This is a test note</p>
+                </div>
+                <div class="delete_note">
+                    <button id="delete_button">Delete Note</button>
+                </div>
+            </div>
+            -->
+        </div>
+    </body>
+
+    <script>
+        $(document).ready(notebook.displayNotebook);
+    </script>
+
+</html>
