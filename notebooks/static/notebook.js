@@ -17,7 +17,7 @@ var notebook = {
     createNoteElement: function(noteId, text) {
         var noteDiv = $("<div>", {
             class: 'note',
-            id: noteId,
+            "data-id": noteId,
         });
         
         var noteTextDiv = $("<div>", {
@@ -26,7 +26,8 @@ var notebook = {
         noteTextDiv.append('<p>' + text + "</p>");
 
         var deleteButton = $("<button>", {
-            class: "delete-button"
+            class: "delete-button",
+            "data-id": noteId,
         });
         deleteButton.html('Delete Note');
 
@@ -51,7 +52,7 @@ var notebook = {
             var noteId = resp.noteId;
             var noteDiv = notebook.createNoteElement(noteId, text);  
             noteDiv.prependTo($("#notes")[0]);
-            $("<hr>").prependTo($("#notes")[0]);
+            //$("<hr>").prependTo($("#notes")[0]);
             $("#note_input")[0].value = "";
           });
     },
@@ -75,7 +76,7 @@ var notebook = {
         for (const note of resp.notes) {
             var noteElement = notebook.createNoteElementFromResponse(note);
             //$("#notes")[0].append(noteElement);
-            $("<hr>").appendTo($("#notes")[0]);
+            //$("<hr>").appendTo($("#notes")[0]);
             noteElement.appendTo($("#notes")[0]);
         }
     },
@@ -93,6 +94,24 @@ var notebook = {
             url: "/notebooks/" + nbid + "/notes",
             method: "GET"
           }).done(notebook.displayNotes);
+    },
+
+
+    handleDeleteClick: function() {
+        $('#notes')[0].onclick = function(e) {
+            const nbid = notebook.parseNbid();
+            const noteId = e.target.getAttribute("data-id");
+            console.log(noteId);
+            $.ajax({
+                url: "/notebooks/" + nbid + "/notes/" + noteId,
+                method: "DELETE"
+              }).done(function(resp){
+                  console.log(resp)
+                  if (resp === "done"){
+                      $(e.target).closest('.note').remove()
+                  }
+              });
+        }
     },
 
     //checks if new notebook button is clicked
