@@ -9,6 +9,7 @@ var notebook = {
     },
 
     createNoteElementFromResponse: function(note) {
+        console.log(note)
         return notebook.createNoteElement(note.id, note.text);
     },
 
@@ -35,10 +36,44 @@ var notebook = {
         return noteDiv;
     },
 
+
+    addNoteToDatabase: function(text) {
+        $.ajax({
+            method: "POST",
+            url: "/notebooks/" + nbid + "/notes",
+            data: JSON.stringify({
+                "text": text
+            }),
+            contentType: "application/json"
+            
+          }).done(function(resp){
+            console.log(resp.noteId)
+            var noteId = resp.noteId;
+            var noteDiv = notebook.createNoteElement(noteId, text);  
+            noteDiv.prependTo($("#notes")[0]);
+            $("<hr>").prependTo($("#notes")[0]);
+            $("#note_input")[0].value = "";
+          });
+    },
+
+    handleAddNoteClick: function() {
+        $("#new_note")[0].onclick = function(e) {
+            console.log("New Note Button Pressed");
+            const text = $("#note_input")[0].value;
+            if (text.length > 0) {
+                console.log(text);
+                notebook.addNoteToDatabase(text);
+                console.log("done")
+            }
+
+
+        }
+    },
+
     //displays the note element on the page
     displayNotes: function(resp) {
         for (const note of resp.notes) {
-            var noteElement = notebook.createNoteElement(note);
+            var noteElement = notebook.createNoteElementFromResponse(note);
             //$("#notes")[0].append(noteElement);
             $("<hr>").appendTo($("#notes")[0]);
             noteElement.appendTo($("#notes")[0]);
@@ -63,8 +98,8 @@ var notebook = {
     //checks if new notebook button is clicked
     ready: function() {
         $("#new_notebook")[0].onclick = function(e) {
-            console.log("Button pressed:");
-            $("#message")[0].innerHTML = "Button clicked"
+            console.log("New Notebook Pressed");
+            $("#message")[0].innerHTML = "New Notebook Clicked";
             $.ajax({
                 url: "/notebooks",
                 method: "POST"

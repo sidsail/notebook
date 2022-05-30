@@ -10,7 +10,7 @@
         <h1>Please bookmark this page</h1>
         <div>
             <div>
-                <input type="text" size="50" />
+                <input type="text" size="50" id="note_input"/>
             </div>
             <div>
                 <button id="new_note">Add Note</button>
@@ -32,7 +32,10 @@
     </body>
 
     <script>
-        $(document).ready(notebook.displayNotebook);
+        $(document).ready(function(){
+            notebook.displayNotebook();
+            notebook.handleAddNoteClick();
+        });
     </script>
 
 </html>
