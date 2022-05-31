@@ -37,7 +37,7 @@ var notebook = {
         return noteDiv;
     },
 
-
+    //adds the created note to the database and displays it on the page
     addNoteToDatabase: function(text) {
         $.ajax({
             method: "POST",
