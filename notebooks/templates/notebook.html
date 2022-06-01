@@ -3,16 +3,19 @@
 <html>
     <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="/static/notebook.js"></script>      
+        <script src="/static/notebook.js"></script>
+        <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     </head>
 
-    <body>
-        <h1>Please bookmark this page</h1>
-        <div>
-            <div>
-                <input type="text" size="50" id="note_input"/>
+    <body class="rest_of_page">
+        <div id="text_box_and_notes" class="text_box_and_notes">
+        <h1 id="header">Please bookmark this page</h1>
+        <div class="add_note">
+            <div id="text_box_div">
+                <textarea id="note_input"></textarea>
             </div>
-            <div>
+            <div id="new_not_button)div">
                 <button id="new_note" class="new_note_button">Add Note</button>
             </div>
         </div>
@@ -43,6 +46,8 @@
             <p id="page_number" class="page_number"></p>
         </div>
         
+        </div>
+        
     </body>
 
     <script>
@@ -54,6 +59,7 @@
             notebook.handlePreviousPageButtonClick();
             notebook.handleFirstPageButtonClick();
             notebook.handleLastPageButtonClick();
+            notebook.handleEnterClick();
         });
     </script>
 

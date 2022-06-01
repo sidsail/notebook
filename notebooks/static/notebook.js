@@ -1,7 +1,7 @@
 var notebook = {
     
     currentPage: 1,
-    limit: 10,
+    limit: 5,
     lastPage: 0,
     buttonRemoved: false,
     
@@ -41,6 +41,7 @@ var notebook = {
         noteTextDiv.append('<p>' + notebook.escapeHtml(text) + "</p>");
 
         var deleteButton = $("<button>", {
+            type: "button",
             class: "delete-button",
             "data-id": noteId,
         });
@@ -72,17 +73,30 @@ var notebook = {
           });
     },
 
-   
+    /*handleEnterClick: function() {
+        $(document).keypress(function(event) {
+            var keycode = event.keyCode || event.which;
+            if(keycode == '13') {  
+                notebook.logNewNote()
+            }
+        });
+    },*/
+
+    logNewNote: function() {
+        const text = $("#note_input")[0].value;
+        if (text.trim().length > 0) {
+            notebook.addNoteToDatabase(text);
+            notebook.goToPage(notebook.currentPage)
+            //notebook.lastPage = notebook.getPageCount()
+            notebook.modifyLastPagebutton()
+        }
+    },
+
 
     handleAddNoteButtonClick: function() {
         $("#new_note")[0].onclick = function(e) {
-            const text = $("#note_input")[0].value;
-            if (text.length > 0) {
-                notebook.addNoteToDatabase(text);
-                notebook.goToPage(notebook.currentPage)
-                //notebook.lastPage = notebook.getPageCount()
-                notebook.modifyLastPagebutton()
-            }
+            notebook.logNewNote()
+            
         }
     },
 
@@ -183,7 +197,6 @@ var notebook = {
                 $("#first_page_button").eq(0).show();
                 $("#last_page_button").eq(0).show();
             }
-            //console.log()
             $("#page_number")[0].innerHTML = notebook.currentPage.toString()         
         })       
     },

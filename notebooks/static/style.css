@@ -1,0 +1,67 @@
+.text_box_and_notes {
+margin: auto;
+width: 60%;
+border: 5px solid #00008B;
+padding: 10px;
+background-color: #ADD8E6;
+}
+
+.rest_of_page {
+background-color: #D96478;
+}
+
+
+.new_note_button {
+color: green;
+font-size: 15;
+}
+
+#new_note_button_div {
+padding-bottom: 5px;
+border-bottom: 5px black;
+}
+
+#text_box_div {
+padding-bottom: 5px;
+}
+
+.delete-button {
+background-color: maroon; 
+border: none;
+color: white;
+padding: 1px 1px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 10px;
+}
+
+.notes {
+    padding-bottom: 50px;
+}
+
+.note-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.note {
+    padding: 5px;
+    border-bottom: 1px black solid;
+}
+
+#header {
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 25px;
+
+}
+
+#note_input {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: 600;
+    width: 600px;
+    height: 150px;
+}
