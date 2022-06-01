@@ -1,3 +1,4 @@
+from matplotlib import offsetbox
 from .. import db
 
 def create_note(uuid, nbid, text):
@@ -11,14 +12,24 @@ def create_note(uuid, nbid, text):
 def get_notes(nbid):
     database = db.get_db()
     rows = database.execute(
-        'select id, body from notes where notebook_id = "%s" order by created desc' % nbid,
+        'SELECT id, body FROM notes WHERE notebook_id = "%s" ORDER BY created DESC' % nbid,
     ).fetchall()
-
     return rows
 
 def delete_note(nid):
     database = db.get_db()
     database.execute(
-        'delete from notes where id = "%s"' % nid, 
+        'DELETE FROM notes WHERE id = "%s"' % nid, 
     )
     database.commit()
+
+def get_some_notes(nbid, limit, offset):
+    database = db.get_db()
+    rows = database.execute(
+        'SELECT id, body FROM notes WHERE notebook_id = "{}" ORDER BY created DESC LIMIT {} OFFSET {}'.format(nbid, limit, offset)
+    ).fetchall()
+    count = database.execute(
+        'SELECT COUNT(id) FROM notes WHERE notebook_id = "{}"'.format(nbid)
+    ).fetchall()
+
+    return rows, count[0]["COUNT(id)"]

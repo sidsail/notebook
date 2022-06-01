@@ -3,6 +3,7 @@ import os
 from urllib import request
 from flask import Flask, render_template, request
 from . import notebooks
+from flask import jsonify
 
 
 def routes(app):
@@ -20,7 +21,12 @@ def routes(app):
     #endpoint for getting all notes
     @app.route('/notebooks/<nbid>/notes', methods = ['GET'])
     def handle_get_notes(nbid):
-        return notebooks.get_notes(nbid)
+        offset = int(request.args['offset'])
+        limit = int(request.args['limit'])
+        return notebooks.get_notes(nbid, limit, offset)
+        #return jsonify({"limit": limit, "offset": offset})
+    
+
 
     #endpoint for deleting a note
     @app.route('/notebooks/<nbid>/notes/<nid>', methods = ['DELETE'])

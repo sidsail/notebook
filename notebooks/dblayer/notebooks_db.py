@@ -12,7 +12,7 @@ def create_notebook(uuid, name):
 def check_exists(nbid):
     database = db.get_db()
     rows = database.execute(
-        'select * from notebooks where id = "%s"' % nbid,
+        'SELECT * from notebooks WHERE id = "%s"' % nbid,
     ).fetchall()
 
     #print(rows)

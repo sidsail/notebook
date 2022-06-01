@@ -1,4 +1,5 @@
 from email.quoprimime import body_check
+from itertools import count
 from os import abort
 from typing import Text
 import uuid
@@ -29,13 +30,13 @@ def create_note(nbid, body):
         abort(404)
 
 #gets all of the notes in a particular notebook
-def get_notes(nbid):
-    rows = notes.get_notes(nbid)
+def get_notes(nbid, limit, offset):
+    rows, count = notes.get_some_notes(nbid, limit, offset)
     notes_list = []
     for row in rows:
         notes_list.append({"id": row[0], "text": row[1]})
     
-    return jsonify({"notes": notes_list})
+    return jsonify({"notes": notes_list, "count": count})
 
 
         
