@@ -4,10 +4,11 @@ width: 60%;
 border: 5px solid #00008B;
 padding: 10px;
 background-color: #ADD8E6;
+height: fit-content;
 }
 
 .rest_of_page {
-background-color: #D96478;
+background-color: #ffffff;
 }
 
 
