@@ -168,28 +168,23 @@ var notebook = {
         }).done(function(resp) {
             notebook.lastPage = Math.ceil(resp.count / notebook.limit)
             console.log(notebook.lastPage)
+            $("#last_page_button")[0].innerHTML = notebook.lastPage 
             if (notebook.lastPage === 0) {
                 notebook.lastPage = 1
             }
-            if (notebook.buttonRemoved === false) {
-                $("#last_page_button")[0].innerHTML = notebook.lastPage;
-                if (notebook.lastPage === 1) {
-                    $("#last_page_button")[0].remove()
-                    notebook.buttonRemoved = true;
-    
-                }
+            if (notebook.lastPage === 1) {
+                $("#next_page_button").eq(0).hide();
+                $("#previous_page_button").eq(0).hide();
+                $("#first_page_button").eq(0).hide();
+                $("#last_page_button").eq(0).hide();
             } else {
-                if (notebook.lastPage > 1) {
-                    var lastPageButton = $("<button>", {
-                        id: "last_page_button",
-                        class: 'nav-button',
-                    });
-                    lastPageButton.html(notebook.lastPage)
-                    $(lastPageButton).insertBefore("#next_page_button")
-                    notebook.buttonRemoved = false;
-                }
+                $("#next_page_button").eq(0).show();
+                $("#previous_page_button").eq(0).show();
+                $("#first_page_button").eq(0).show();
+                $("#last_page_button").eq(0).show();
             }
-        
+            //console.log()
+            $("#page_number")[0].innerHTML = notebook.currentPage.toString()         
         })       
     },
 
@@ -200,10 +195,12 @@ var notebook = {
             url: "/notebooks/" + nbid + "/notes?" + "limit=" + notebook.limit + "&offset=0",
             method: "GET"
         }).done(function(resp) {
-            console.log(resp.count)
+            //console.log(resp.count)
             notebook.displayNotes(resp);
             notebook.lastPage = Math.ceil(resp.count / notebook.limit);
             notebook.modifyLastPagebutton()
+            console.log(notebook.currentPage)
+            //$("#page_numer").eq(0).innerHTML = notebook.currentPage
         });
     },
     
