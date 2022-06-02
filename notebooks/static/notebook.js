@@ -73,14 +73,14 @@ var notebook = {
           });
     },
 
-    /*handleEnterClick: function() {
+    handleEnterClick: function() {
         $(document).keypress(function(event) {
             var keycode = event.keyCode || event.which;
-            if(keycode == '13') {  
-                notebook.logNewNote()
+            if(keycode == '13' && !event.shiftKey) {
+                notebook.logNewNote();
             }
         });
-    },*/
+    },
 
     logNewNote: function() {
         const text = $("#note_input")[0].value;
