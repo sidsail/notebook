@@ -1,4 +1,3 @@
-from matplotlib import offsetbox
 from .. import db
 
 def create_note(uuid, nbid, text):
